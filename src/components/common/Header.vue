@@ -21,13 +21,13 @@
                         <router-link to="/" class="nav-link" href="#">电子书</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/login" class="nav-link" href="#">{{username}}</router-link>
+                        <a class="nav-link" href="#" v-on:click="moveTo">{{username}}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-show="isLogin">
                         <router-link to="/" class="nav-link" href="#">购物车</router-link>
                     </li>
-                    <li class="nav-item">
-                        <router-link to="/" class="nav-link" href="#">订单管理</router-link>
+                    <li class="nav-item" v-show="isLogin">
+                        <router-link to="/order" class="nav-link" href="#">订单管理</router-link>
                     </li>
                 </ul>
             </div>
@@ -41,8 +41,39 @@ export default {
   name: 'Header',
   data(){
       return{
-        username: '登陆'
+        username: '登陆',
+        uid: -1,
+        isLogin: ''
       }
   },
+  created:function () {
+      //登陆状态检查
+    this.uid = localStorage.getItem('uid')
+    this.$axios
+    .get('/user/check',{
+        params:{
+            uid: this.uid
+        }
+    })
+    .then(response=>{
+        if(response.data.code === 200){
+            this.isLogin = true
+            this.username = response.data.data.uname
+        }
+    })
+    .catch(response=>{
+        this.isLogin = false
+        this.username = '登陆'
+    })
+  },
+    methods:{
+        moveTo(){
+            if(this.isLogin===false){
+                this.$router.replace({path: '/login'})
+            }else{
+                this.$router.replace({path: '/personalMes'})
+            }
+        }
+    }
 }
 </script>

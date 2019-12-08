@@ -34,7 +34,10 @@ export default {
       .then(successResponse => {
         this.responseResult = JSON.stringify(successResponse.data)
         if (successResponse.data.code === 200) {
-          this.$router.replace({path: '/index'})
+          //将登陆状态储存在localstorage
+          localStorage.setItem('uid',this.$cookies.get('uid'))
+          this.$router.go(0)
+          this.$router.push({path: '/index'})
         }else{
           this.$router.push({
               path: '/error',

@@ -7,6 +7,9 @@ import books from '@/components/page/books'
 import book  from '@/components/page/book'
 import register from '@/components/page/register'
 import error from '@/components/page/error'
+import personalMes from '@/components/page/personalMes'
+import order from '@/components/page/order'
+import orderDetails from '@/components/page/orderDetails'
 
 Vue.use(Router)
 
@@ -45,6 +48,21 @@ export default new Router({
       path: '/error',
       name: 'error',
       component: error
+    },
+    {
+      path: '/personalMes',
+      name: 'personalMes',
+      component: personalMes
+    },
+    {
+      path: '/order',
+      name: 'order',
+      component: order
+    },
+    {
+      path: '/orderDetails',
+      name: 'orderDetails',
+      component: orderDetails
     }
   ]
 })

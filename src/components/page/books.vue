@@ -96,7 +96,7 @@ export default {
     },
     created: function(){
         this.$axios
-        .get('/Book/pagination',{
+        .get('/pagination',{
             params:{
                 paginationClass: 'newBook',
             }
@@ -120,7 +120,7 @@ export default {
         },
         changePage(isNextPage){
             this.$axios
-            .get('/Book/pagination',{
+            .get('/pagination',{
                 params:{
                     paginationClass: 'newBook',
                     isNextPage: isNextPage
