@@ -9,6 +9,7 @@ import VueCookies from 'vue-cookies'
 var axios = require('axios')
 axios.defaults.baseURL = 'http://localhost/BTS/api'
 
+let _ = require('lodash')
 Vue.use(VueCookies)
 
 // 将API方法绑定到全局

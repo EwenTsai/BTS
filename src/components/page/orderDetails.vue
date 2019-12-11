@@ -22,7 +22,11 @@
             <br><br>
             <div class="row">
                 <div class="col-1"></div>
-                <div class="col-3">订单内包含的书本</div>
+                <div class="col-3">订单内包含的书本
+                    <div v-for="name in bookNameArray">
+                        {{name}}
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-1"></div>
@@ -39,54 +43,36 @@ export default {
     name: 'orderDetailss',
     data(){
         return{
-            id: '',
-            orderMes: [],
             bookNameArray: [],
             orderId: '',
-            amount: ''
+            amount: '',
+            bookId: [],
         }
     },
     created: function(){
-        this.id = this.$route.query.orderId
+        this.orderId = this.$route.query.orderId
         this.$axios
         .get('/Order/get',{
             params:{
-                orderId: this.id
+                orderId: this.orderId
             }
         })
         .then(response=>{
-            this.orderMes = response.data
-            this.orderId = this.orderMes[0].orderId
-            this.amount = this.orderMes[1].amount
-            // console.log(response.data)
+            this.orderId = response.data[0].orderId
+            this.amount = response.data[1].amount
+            this.bookId.push(response.data[0].bookId);
+            for (let i = 0; i < response.data.length-1; i++) {
+                this.$axios
+                .get('/Book/searchBook',{
+                    params:{
+                        id: response.data[0].bookId
+                    }
+                })
+                .then(response=>{
+                    this.bookNameArray.push(response.data.bookname)
+                })
+            }
         })
-        this.getBookMes()
-        // for (let i = 0; i < this.orderMes.length-1; i++) {
-            // this.$axios
-            // .get('/Book/searchBook',{
-            //     params:{
-            //         id: this.orderMes[0].bookId
-            //     }
-            // })
-            // .then(response=>{
-            //     console.log(this.orderMes[0].bookId)
-            //     console.log(response)
-            // })
-        // }
     },
-    methods:{
-        getBookMes(){
-            this.$axios
-            .get('/Book/searchBook',{
-                params:{
-                    id: this.orderMes[0].bookId
-                }
-            })
-            .then(response=>{
-                // console.log('bookId',this.orderMes[0].bookId) 
-                console.log(response.data)
-            })
-        }
-    }
 }
 </script>

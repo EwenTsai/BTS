@@ -24,7 +24,7 @@
                         <a class="nav-link" href="#" v-on:click="moveTo">{{username}}</a>
                     </li>
                     <li class="nav-item" v-show="isLogin">
-                        <router-link to="/" class="nav-link" href="#">购物车</router-link>
+                        <router-link to="/cart" class="nav-link" href="#">购物车</router-link>
                     </li>
                     <li class="nav-item" v-show="isLogin">
                         <router-link to="/order" class="nav-link" href="#">订单管理</router-link>
@@ -69,9 +69,9 @@ export default {
     methods:{
         moveTo(){
             if(this.isLogin===false){
-                this.$router.replace({path: '/login'})
+                this.$router.push({path: '/login'})
             }else{
-                this.$router.replace({path: '/personalMes'})
+                this.$router.push({path: '/personalMes'})
             }
         }
     }

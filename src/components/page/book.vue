@@ -9,7 +9,7 @@
                             <div>出版时间</div>
                             <div class="post-tag">{{book.releaseTime}}</div>
                             <ul class="list-inline blog-item-links">
-                                <li class="list-inline-item"><a id="addToCart" href="cart.html" onclick="addToCart()">加入购物车</a></li>
+                                <li class="list-inline-item"><a href="#" v-on:click="addcart">加入购物车</a></li>
                             </ul>
                             <h1 id="nameAndauthor">{{book.bookname}} -- {{book.author}}</h1>
                         </div>
@@ -56,6 +56,17 @@ export default {
         .then(data=>{
             this.book = data.data
         })
+    },
+    methods:{
+        addcart(){
+            console.log(this.bookId)
+            this.$router.push({
+                path: '/cart',
+                query:{
+                    bookId: this.bookId
+                }
+            })
+        }
     }
 }
 </script>

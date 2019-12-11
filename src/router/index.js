@@ -10,6 +10,7 @@ import error from '@/components/page/error'
 import personalMes from '@/components/page/personalMes'
 import order from '@/components/page/order'
 import orderDetails from '@/components/page/orderDetails'
+import cart from '@/components/page/cart'
 
 Vue.use(Router)
 
@@ -63,6 +64,11 @@ export default new Router({
       path: '/orderDetails',
       name: 'orderDetails',
       component: orderDetails
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: cart
     }
   ]
 })
