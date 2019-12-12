@@ -78,15 +78,18 @@ export default {
     },
     created:function(){
         this.bookId = this.$route.query.bookId
-        this.$axios
-        .get('/Cart/updateCart',{
-            params:{
-                bookId: this.bookId
-            }
-        })
-        .then(response=>{
-            this.cartMes = response.data
-            console.log(this.cartMes)
+        console.log("here")
+        this.$nextTick(() => {
+            this.$axios
+            .get('/Cart/updateCart',{
+                params:{
+                    bookId: this.bookId
+                }
+            })
+            .then(response=>{
+                this.cartMes = response.data
+                console.log(this.cartMes)
+            })
         })
     },
     methods:{
