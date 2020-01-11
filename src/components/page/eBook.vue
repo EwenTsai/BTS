@@ -6,15 +6,8 @@
         <div class="row">
           <div class="col-12">
             <div class="header-intro-wrap">
-              <div class="header-intro-tag">
-                <input type="text" v-model="searchText" />
-              </div>
               <div>
-                <a
-                  v-on:click="searchBook"
-                  class="btn btn-primary main-btn bg-main"
-                  >搜索</a
-                >
+                  <h1>电子书</h1>
               </div>
             </div>
           </div>
@@ -28,7 +21,7 @@
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-6">
             <div class="feature-wrap">
-              <div><a href="#">书名</a></div>
+              <div><a href="#">编号</a></div>
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-6">
@@ -42,33 +35,25 @@
             </div>
           </div>
         </div>
-        <div v-for="book in booksMes">
+        <div v-for="eBook in booksMes">
           <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-6">
               <div class="feature-wrap">
                 <div>
-                  <a href="#" v-on:click="moveToBook(book.id)">{{
-                    book.bookname
-                  }}</a>
+                  {{eBook.id}}
                 </div>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
               <div class="feature-wrap">
-                <div>{{ book.author }}</div>
+                <div>{{ eBook.bookname }}</div>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
               <div class="feature-wrap">
-                <div
-                  v-bind:style="{
-                    overflow: style.first,
-                    'text-overflow': style.second,
-                    'white-space': style.third
-                  }"
-                >
-                  {{ book.intro }}
-                </div>
+                <a href="#" v-on:click="download">
+                  下载链接
+                </a>
               </div>
             </div>
           </div>
@@ -79,7 +64,9 @@
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-6">
             <div class="feature-wrap">
-              <a href="#" v-on:click="changePage(-1)" v-if="hasPreviousPage">上一页</a>
+              <a href="#" v-on:click="changePage(-1)" v-if="hasPreviousPage"
+                >上一页</a
+              >
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-6">
@@ -87,7 +74,9 @@
           </div>
           <div class="col-lg-4 col-md-4 col-sm-6">
             <div class="feature-wrap">
-              <a href="#" v-on:click="changePage(1)" v-if="hasNextPage">下一页</a>
+              <a href="#" v-on:click="changePage(1)" v-if="hasNextPage"
+                >下一页</a
+              >
             </div>
           </div>
         </div>
@@ -110,37 +99,24 @@ export default {
       searchText: "",
       currPage: 1,
       hasPreviousPage: true,
-      hasNextPage: false,
+      hasNextPage: false
     };
   },
   created: function() {
-    this.$axios
-      .get("/Book")
-      .then(data => {
-        this.booksMes = data.data.list;
-        this.currPage = data.data.pageNum;
-        this.hasPreviousPage = data.data.hasPreviousPage;
-        this.hasNextPage = data.data.hasNextPage;
-      });
+    this.$axios.get("/EBook").then(data => {
+      this.booksMes = data.data.list;
+      this.currPage = data.data.pageNum;
+      this.hasPreviousPage = data.data.hasPreviousPage;
+      this.hasNextPage = data.data.hasNextPage;
+    });
+    console.log(this.booksMes);
   },
   methods: {
-    searchBook() {
-      this.$axios
-        .get("/Book/search", {
-          params: {
-            searchText: this.searchText
-          }
-        })
-        .then(data => {
-          console.log(data.data);
-          this.booksMes = data.data;
-        });
-    },
     changePage(isNextPage) {
       this.$axios
-        .get("/Book", {
+        .get("/EBook", {
           params: {
-            pageNum: this.currPage+isNextPage
+            pageNum: this.currPage + isNextPage
           }
         })
         .then(data => {
@@ -150,7 +126,7 @@ export default {
           this.hasNextPage = data.data.hasNextPage;
         });
     },
-    moveToBook(bookId) {
+    download(bookId) {
       this.$router.push({
         path: "/book",
         query: {

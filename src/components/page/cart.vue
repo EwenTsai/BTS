@@ -87,11 +87,9 @@ export default {
     };
   },
   mounted: function() {
-    console.log("here");
     this.$nextTick(() => {
       this.$axios.get("/Cart/updateCart").then(response => {
         this.cartMes = response.data;
-        console.log(this.cartMes);
       });
     });
   },

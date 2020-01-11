@@ -61,15 +61,15 @@
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-6">
             <div class="feature-wrap">
-              <a href="#" v-on:click="changePage(-1)">上一页</a>
+              <a href="#" v-on:click="changePage(-1)" v-if="hasLastPage">上一页</a>
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="feature-wrap">{{ currPage }}</div>
+            <div class="feature-wrap">第{{ currPage }}页</div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-6">
             <div class="feature-wrap">
-              <a href="#" v-on:click="changePage(1)">下一页</a>
+              <a href="#" v-on:click="changePage(1)" v-if="hasFirstPage">下一页</a>
             </div>
           </div>
         </div>
@@ -85,34 +85,27 @@ export default {
     return {
       orderMes: [],
       uid: "",
-      currPage: 1
+      currPage: 1,
+      hasFirstPage: true,
+      hasLastPage: false
     };
   },
   created: function() {
-    //获取uid
-    this.uid = localStorage.getItem("uid");
     this.$axios
-      .get("/pagination", {
-        params: {
-          paginationClass: "orders"
-        }
-      })
+      .get("/Order")
       .then(response => {
-        this.orderMes = response.data;
+        this.orderMes = response.data.list;
+        this.hasFirstPage = response.data.hasFirstPage;
+        this.hasLastPage = response.data.hasLastPage;
       });
   },
   methods: {
     changePage(isNextPage) {
       this.$axios
-        .get("/pagination", {
-          params: {
-            paginationClass: "orders",
-            isNextPage: isNextPage
-          }
-        })
+        .get("/Order")
         .then(data => {
-          this.orderMes = data.data;
-          this.currPage = this.currPage + isNextPage;
+          this.orderMes = data.data.list;
+          this.currPage = data.data.pageNum;
         });
     },
     moveTo(orderId) {

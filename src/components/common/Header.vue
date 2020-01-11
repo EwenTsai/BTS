@@ -18,7 +18,7 @@
                         <router-link to="/books" class="nav-link" href="#">纸质书</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/" class="nav-link" href="#">电子书</router-link>
+                        <router-link to="/eBook" class="nav-link" href="#">电子书</router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" v-on:click="moveTo">{{username}}</a>
