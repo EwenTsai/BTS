@@ -24,7 +24,7 @@
         v-model="registerInfoVo.vaildateCode"
         placeholder="请输入验证码"
       />
-      <img src="http://localhost/BTS/api/refreshCode" />
+      <img src="http://localhost/BTS/api/kaptcha" />
       <button v-on:click="register">登录</button>
     </div>
   </div>
@@ -50,7 +50,7 @@ export default {
           uname: this.registerInfoVo.username,
           pwd: this.registerInfoVo.password,
           rePwd: this.registerInfoVo.repassword,
-          vaildateCode: this.registerInfoVo.vaildateCode
+          kaptchaCode: this.registerInfoVo.vaildateCode
         })
         .then(successResponse => {
           console.log(successResponse);

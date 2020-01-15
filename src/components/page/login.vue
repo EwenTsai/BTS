@@ -18,7 +18,7 @@
         v-model="loginInfoVo.vaildateCode"
         placeholder="请输入验证码"
       />
-      <img src="http://localhost/BTS/api/refreshCode" />
+      <img src="http://localhost/BTS/api/kaptcha" title="图片看不清？点击重新得到验证码"/>
       <button v-on:click="login">登录</button>
       <br />
       还没有帐户？<router-link to="/register">注册</router-link>
@@ -40,14 +40,12 @@ export default {
         .post("/user/login", {
           uname: this.loginInfoVo.username,
           pwd: this.loginInfoVo.password,
-          vaildateCode: this.loginInfoVo.vaildateCode
+          kaptchaCode: this.loginInfoVo.vaildateCode
         })
         .then(successResponse => {
-          this.responseResult = JSON.stringify(successResponse.data);
           if (successResponse.data.code === 200) {
             //将登陆状态储存在localstorage
-            localStorage.setItem("uid", this.$cookies.get("uid"));
-            this.$router.go(0);
+            localStorage.setItem('uid', successResponse.data.data.uid);
             this.$router.push({ path: "/index" });
           } else {
             this.$router.push({
@@ -59,7 +57,7 @@ export default {
           }
         })
         .catch(failResponse => {});
-    }
+    },
   }
 };
 </script>

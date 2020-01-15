@@ -50,7 +50,7 @@
             <!-- 删除链接 -->
             <div class="col-lg-4 col-md-4 col-sm-6">
               <div class="feature-wrap">
-                <div><a href="#" v-on:click="delOrder(-book.id)">删除</a></div>
+                <div><a href="#" v-on:click="delBook(book.id)">删除</a></div>
               </div>
             </div>
           </div>
@@ -62,10 +62,11 @@
           <div class="col-lg-4 col-md-4 col-sm-6"></div>
           <div class="col-lg-4 col-md-4 col-sm-6">
             <div class="feature-wrap">总价：</div>
-            <div class="feature-wrap" id="total"></div>
+            <div class="feature-wrap">{{ amount }}</div>
             <div>
               <a
-                onclick="settleAccount()"
+                href="#"
+                v-on:click="settleAccount()"
                 class="btn btn-primary main-btn bg-main"
                 >结算</a
               >
@@ -83,26 +84,39 @@ export default {
   data() {
     return {
       cartMes: [],
+      amount: 0,
       bookId: ""
     };
   },
   mounted: function() {
     this.$nextTick(() => {
-      this.$axios.get("/Cart/updateCart").then(response => {
-        this.cartMes = response.data;
+      this.$axios.get("/Cart").then(response => {
+        this.cartMes = response.data.data;
+        for(var book in this.cartMes){
+          this.amount+=this.cartMes[book].price;
+        }
       });
     });
   },
   methods: {
-    delOrder(bookId) {
-      this.$axios.get("/Cart/updateCart", {
+    delBook(bookId) {
+      this.$axios
+      .get("/Cart/delete", {
         params: {
           bookId: bookId
         }
-      });
-      // .then(response=>{
-      //     this.$router.go(0)
-      // })
+      })
+      .then(response=>{
+        this.$router.go(0)
+      })
+    },
+    settleAccount(){
+      this.$axios
+      .get("/Cart/settle",{
+        params: {
+          amount: this.amount
+        }
+      })
     }
   }
 };

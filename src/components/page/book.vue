@@ -65,7 +65,7 @@ export default {
     addcart() {
       console.log(this.bookId);
       this.$axios
-        .get("/Cart/updateCart", {
+        .get("/Cart/add", {
           params: {
             bookId: this.bookId
           }
