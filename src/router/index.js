@@ -13,6 +13,8 @@ import orderDetails from "@/components/page/orderDetails";
 import cart from "@/components/page/cart";
 import eBook from "@/components/page/eBook";
 
+import admin from "@/components/admin/main";
+
 Vue.use(Router);
 
 export default new Router({
@@ -75,6 +77,12 @@ export default new Router({
       path: "/eBook",
       name: "eBook",
       component: eBook
-    }
+    },
+    //后台管理系统
+    {
+      path: "/admin/main",
+      name: "admin.main",
+      component: admin
+    },
   ]
 });
