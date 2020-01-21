@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "book",
+  name: "admin.main",
   data() {
     return {
       bookId: "",

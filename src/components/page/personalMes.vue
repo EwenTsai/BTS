@@ -66,13 +66,8 @@ export default {
   },
   created: function() {
     //获取用户信息
-    this.uid = localStorage.getItem("uid");
     this.$axios
-      .get("/user/check", {
-        params: {
-          uid: this.uid
-        }
-      })
+      .get("/user/get")
       .then(response => {
         if (response.data.code === 200) {
           this.updateUserVo.uname = response.data.data.uname;
@@ -91,11 +86,6 @@ export default {
       this.$router.replace({ path: "/index" });
     },
     update () {
-      console.log("newBirthday"+this.newBirthday);
-      console.log("birthday"+this.updateUserVo.birthday);
-      // if(this.updateUserVo.birthday==""){
-      //   this.updateUserVo.birthday = this.birthday;
-      // }
       this.$axios
       .get("/user/update",{
         params:{
@@ -105,7 +95,7 @@ export default {
         }
       })
       .then(response => {
-        console.log(response.data);
+        alert(response.data.data)
       })
     }
   }

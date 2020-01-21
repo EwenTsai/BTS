@@ -63,18 +63,17 @@ export default {
   },
   methods: {
     addcart() {
-      console.log(this.bookId);
       this.$axios
-        .get("/Cart/add", {
-          params: {
-            bookId: this.bookId
-          }
-        })
-        .then(response => {
-          setTimeout(() => {
-            this.$router.push("/cart");
-          }, 2000);
-        });
+      .get("/Cart/add", {
+        params: {
+          bookId: this.bookId
+        }
+      })
+      .then(response => {
+        setTimeout(() => {
+          this.$router.push("/cart");
+        }, 1000);
+      })
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <!-- <Header></Header> -->
-    <Admin></Admin>
+    <Header v-show="isUser"></Header>
+    <Admin v-show="isAdmin"></Admin>
     <router-view/>
     <Footer></Footer>
   </div>
@@ -41,12 +41,28 @@ export default {
   name: 'App',
   data(){
     return{
-      isAdmin: false
+      uid: "",
+      isAdmin: false,
+      isUser: true
     }
   },
   components:{Header,Footer,Admin},
   created: function(){
-
+    this.uid = localStorage.getItem('uid');
+    this.$axios
+    .get("/user/check",{
+      params:{
+        uid: this.uid
+      }
+    })
+    .then(response => {
+      this.isAdmin = response.data.data.admin
+      if(this.isAdmin){
+        this.isUser = false;
+      }else{
+        this.isUser = true;
+      }
+    })
   }
 }
 </script>
