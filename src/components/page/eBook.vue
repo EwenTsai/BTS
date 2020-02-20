@@ -109,7 +109,6 @@ export default {
       this.hasPreviousPage = data.data.hasPreviousPage;
       this.hasNextPage = data.data.hasNextPage;
     });
-    console.log(this.booksMes);
   },
   methods: {
     changePage(isNextPage) {

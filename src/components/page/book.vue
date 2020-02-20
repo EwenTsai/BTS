@@ -25,10 +25,24 @@
                   <p></p>
                   <h2>作者简介</h2>
                   <p>{{ book.aboutAuthor }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="card-details">
                   <h2>价格</h2>
                   <p>{{ book.price }}</p>
                   <h2>评分</h2>
                   <p>{{ book.rate }}</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="card-details">
+                  <h2>销量</h2>
+                  <p>{{ book.sales }}</p>
+                  <h2>库存</h2>
+                  <p>{{ book.stock }}</p>
                 </div>
               </div>
             </div>

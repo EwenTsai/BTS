@@ -16,6 +16,7 @@ import eBook from "@/components/page/eBook";
 import admin from "@/components/admin/main";
 import adminBooks from "@/components/admin/books";
 import adminBook from "@/components/admin/book"
+import adminUser from "@/components/admin/user"
 
 Vue.use(Router);
 
@@ -95,6 +96,11 @@ export default new Router({
       path: "/admin/book",
       name: "admin.book",
       component: adminBook
+    },
+    {
+      path: "/admin/user",
+      name: "admin.user",
+      component: adminUser
     }
   ]
 });

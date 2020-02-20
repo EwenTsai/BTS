@@ -59,8 +59,6 @@
 
 <script>
 
-import { formatDate } from '../../../static/js/date.js'
-
 export default {
   name: "admin.book",
   data() {

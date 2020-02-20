@@ -1,5 +1,4 @@
 <template>
-<!--=== navbar ===-->
 <header class="header">
     <nav class="navbar navbar-expand-sm">
         <div class="container">
@@ -10,7 +9,7 @@
                         <router-link to="/admin/main" class="nav-link" href="#">首页</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/books" class="nav-link" href="#">用户管理</router-link>
+                        <router-link to="/admin/user" class="nav-link" href="#">用户管理</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link to="/admin/books" class="nav-link" href="#">书籍管理</router-link>

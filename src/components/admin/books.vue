@@ -22,7 +22,28 @@
       </div>
     </section>
 
-    <!--=== features ===-->
+    <section class="features">
+      <div class="container" id="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="feature-wrap">
+              <a class="btn btn-primary main-btn bg-main" v-on:click="sortBySales">热销排行</a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="feature-wrap">
+              <div><a class="btn btn-primary main-btn bg-main">空库存查询</a></div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="feature-wrap">
+              <div><a class="btn btn-primary main-btn bg-main">增添书本</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="features">
       <div class="container" id="container">
         <div class="row">
@@ -42,15 +63,14 @@
             <div class="col-lg-4 col-md-4 col-sm-6">
               <div class="feature-wrap">
                 <div>
-                  <a href="#" v-on:click="moveToBook(book.id)">{{
-                    book.id
-                  }}</a>
+                  {{ book.id }}
                 </div>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
               <div class="feature-wrap">
-                <div>{{ book.bookname }}</div>
+                <div>
+                  <a href="#" v-on:click="moveToBook(book.id)">{{ book.bookname }}</a></div>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
@@ -85,6 +105,7 @@
 </template>
 
 <script>
+
 export default {
   name: "admin.books",
   data() {
@@ -147,6 +168,16 @@ export default {
           bookId: bookId
         }
       });
+    },
+    sortBySales(){
+      this.$axios
+      .get("/Book/sales")
+      .then(response => {
+        this.booksMes = response.data.list;
+        this.currPage = response.data.pageNum;
+        this.hasPreviousPage = response.data.hasPreviousPage;
+        this.hasNextPage = response.data.hasNextPage;
+      })
     }
   }
 };
