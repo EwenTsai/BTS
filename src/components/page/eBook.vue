@@ -7,7 +7,7 @@
           <div class="col-12">
             <div class="header-intro-wrap">
               <div>
-                  <h1>电子书</h1>
+                <h1>电子书</h1>
               </div>
             </div>
           </div>
@@ -40,7 +40,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6">
               <div class="feature-wrap">
                 <div>
-                  {{eBook.id}}
+                  {{ eBook.id }}
                 </div>
               </div>
             </div>
@@ -104,10 +104,10 @@ export default {
   },
   created: function() {
     this.$axios.get("/EBook").then(data => {
-      this.booksMes = data.data.list;
-      this.currPage = data.data.pageNum;
-      this.hasPreviousPage = data.data.hasPreviousPage;
-      this.hasNextPage = data.data.hasNextPage;
+      this.booksMes = data.data.content;
+      this.currPage = data.data.pageable.pageNumber+1;
+      this.hasPreviousPage = data.data.last;
+      this.hasNextPage = data.data.first;
     });
   },
   methods: {
@@ -115,14 +115,14 @@ export default {
       this.$axios
         .get("/EBook", {
           params: {
-            pageNum: this.currPage + isNextPage
+            pageNum: this.currPage + isNextPage-1
           }
         })
         .then(data => {
-          this.booksMes = data.data.list;
-          this.currPage = data.data.pageNum;
-          this.hasPreviousPage = data.data.hasPreviousPage;
-          this.hasNextPage = data.data.hasNextPage;
+          this.booksMes = data.data.content;
+          this.currPage = data.data.pageable.pageNumber+1;
+          this.hasPreviousPage = data.data.last;
+          this.hasNextPage = data.data.first;
         });
     },
     download(bookId) {

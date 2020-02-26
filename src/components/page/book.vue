@@ -10,7 +10,11 @@
               <div class="post-tag">{{ book.releaseTime }}</div>
               <ul class="list-inline blog-item-links">
                 <li class="list-inline-item">
-                  <a href="#" v-on:click="addcart">加入购物车</a>
+                  <a
+                    v-on:click="addcart"
+                    class="btn btn-primary main-btn bg-main"
+                    >加入购物车</a
+                  >
                 </li>
               </ul>
               <h1 id="nameAndauthor">
@@ -78,16 +82,16 @@ export default {
   methods: {
     addcart() {
       this.$axios
-      .get("/Cart/add", {
-        params: {
-          bookId: this.bookId
-        }
-      })
-      .then(response => {
-        setTimeout(() => {
-          this.$router.push("/cart");
-        }, 1000);
-      })
+        .get("/Cart/add", {
+          params: {
+            bookId: this.bookId
+          }
+        })
+        .then(response => {
+          setTimeout(() => {
+            this.$router.push("/cart");
+          }, 1000);
+        });
     }
   }
 };

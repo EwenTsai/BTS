@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import store from '../../store'
+
 export default {
   name: "Header",
   data() {
@@ -74,6 +76,8 @@ export default {
         if (response.data.code === 200) {
           this.isLogin = true;
           this.username = response.data.data.uname;
+          console.log('Header.admin'+response.data.data.admin)
+          store.commit('login',response.data.data.admin)
         }
       })
       .catch(response => {

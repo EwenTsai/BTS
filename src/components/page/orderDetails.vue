@@ -36,7 +36,7 @@
       <div class="row">
         <div class="col-8"></div>
         <div>
-          <a onclick="doDelete()" class="btn btn-primary main-btn bg-main"
+          <a v-on:click="doDelete(orderId)" class="btn btn-primary main-btn bg-main"
             >删除订单</a
           >
         </div>
@@ -64,21 +64,21 @@ export default {
         }
       })
       .then(response => {
-        this.orderId = response.data[0].orderId;
-        this.amount = response.data[1].amount;
-        this.bookId.push(response.data[0].bookId);
-        for (let i = 0; i < response.data.length - 1; i++) {
-          this.$axios
-            .get("/Book/searchBook", {
-              params: {
-                id: response.data[0].bookId
-              }
-            })
-            .then(response => {
-              this.bookNameArray.push(response.data.bookname);
-            });
-        }
+        console.log(response.data)
+        this.orderId = response.data.data.orderId
+        this.amount = response.data.data.amount
+        this.bookNameArray = response.data.data.booknames
       });
+  },
+  methods:{
+    doDelete(orderId){
+      this.$axios
+      .get("/Order/remove",{
+        params:{
+          orderId: orderId
+        }
+      })
+    }
   }
 };
 </script>

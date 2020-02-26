@@ -39,6 +39,9 @@
 </template>
 
 <script>
+
+import store from "../../store"
+
 export default {
   name: "login",
   data() {
@@ -58,7 +61,7 @@ export default {
           if (successResponse.data.code === 200) {
             //将登陆状态储存在localstorage
             localStorage.setItem("uid", successResponse.data.data.uid);
-            this.$router.go(0);
+            store.commit('login',successResponse.data.data.role)
             this.$router.push({ path: "/index" });
           } else {
             this.$router.push({

@@ -5,6 +5,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
+            <h1>电子书城</h1>
             <div class="header-intro-wrap">
               <div class="header-intro-tag">
                 <input type="text" v-model="searchText" />
@@ -117,10 +118,10 @@ export default {
     this.$axios
       .get("/Book")
       .then(data => {
-        this.booksMes = data.data.list;
-        this.currPage = data.data.pageNum;
-        this.hasPreviousPage = data.data.hasPreviousPage;
-        this.hasNextPage = data.data.hasNextPage;
+        this.booksMes = data.data.content;
+        this.currPage = data.data.pageable.pageNumber+1;
+        this.hasPreviousPage = data.data.last;
+        this.hasNextPage = data.data.first;
       });
   },
   methods: {
@@ -140,14 +141,14 @@ export default {
       this.$axios
         .get("/Book", {
           params: {
-            pageNum: this.currPage+isNextPage
+            pageNum: this.currPage+isNextPage-1
           }
         })
         .then(data => {
-          this.booksMes = data.data.list;
-          this.currPage = data.data.pageNum;
-          this.hasPreviousPage = data.data.hasPreviousPage;
-          this.hasNextPage = data.data.hasNextPage;
+          this.booksMes = data.data.content;
+          this.currPage = data.data.pageable.pageNumber+1;
+          this.hasPreviousPage = data.data.last;
+          this.hasNextPage = data.data.first;
         });
     },
     moveToBook(bookId) {

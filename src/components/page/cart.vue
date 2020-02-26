@@ -59,7 +59,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-6"></div>
-          <div class="col-lg-4 col-md-4 col-sm-6"></div>
+          <div class="col-lg-4 col-md-4 col-sm-6"></div >
           <div class="col-lg-4 col-md-4 col-sm-6">
             <div class="feature-wrap">总价：</div>
             <div class="feature-wrap">{{ amount }}</div>
@@ -90,7 +90,10 @@ export default {
   },
   mounted: function() {
     this.$nextTick(() => {
-      this.$axios.get("/Cart").then(response => {
+      this.$axios
+      .get("/Cart")
+      .then(response => {
+        console.log(response.data)
         this.cartMes = response.data.data;
         for(var book in this.cartMes){
           this.amount+=this.cartMes[book].price;
